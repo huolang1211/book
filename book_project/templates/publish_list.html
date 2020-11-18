@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+
+{#标题#}
+{% block title %}
+    <title>publish_list</title>
+{% endblock title %}
+
+{#头部信息#}
+{% block head %}
+    <span>出&nbsp;版&nbsp;社&nbsp;旗&nbsp;下&nbsp;的&nbsp;书&nbsp;籍&nbsp;页&nbsp;面</span>
+{% endblock %}
+
+{#表格#}
+{% block con %}
+    <table class="table table-bordered text-center">
+        <thead>
+        <tr>
+            <th class="text-center">书名</th>
+            <th class="text-center">出版日期</th>
+            <th class="text-center">价格</th>
+            <th class="text-center">作者</th>
+        </tr>
+        </thead>
+        <tbody>
+        {# 表格内容 #}
+        {% for book in book_list %}
+            <tr>
+                <td>{{ book.title }}</td>
+                <td>{{ book.publishDate|date:'Y-m-d' }}</td>
+                {# 日期格式化输出 #}
+                <td>{{ book.price }}</td>
+                <td>
+                    {% for author in book.authors.all %}{# 拿到所有作者 #}
+                        {% if forloop.last %}{# 判断是否是最后一个值 #}
+                            <a href="/book/{{ author.pk }}/author_list/">{{ author.name }}</a>{# 最后一个值不加逗号 #}
+                        {% else %}
+                            <a href="/book/{{ author.pk }}/author_list/">{{ author.name }}</a>,
+                        {% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock con %}
+

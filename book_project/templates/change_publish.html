@@ -1,0 +1,37 @@
+{% extends 'changes.html' %}
+{# id #}
+{% block id %}
+    <input type="text" value={{ publish_obj.nid }}>
+{% endblock id %}
+{#标题#}
+{% block modal_title %}
+    <h3>出版社：{{ publish_obj.name }}</h3>
+{% endblock modal_title %}
+
+
+{#form表单#}
+{% block modal_table %}
+    <form>
+        {% csrf_token %}
+        <div class="row">
+            <p class="col-xs-6 col-md-offset-2">
+                <label for="id_name">{{ form.name.label }}</label>
+                <input type="text" id="id_name" value={{ publish_obj.name }} class="form-control">
+                <span style="color: red" class="pull-right error"></span>
+            </p>
+            <p class="col-xs-6 col-md-offset-2">
+                <label for="id_city">{{ form.city.label }}</label>
+                <input type="text" id="id_city" value={{ publish_obj.city }} class="form-control">
+                <span style="color: red" class="pull-right error"></span>
+            </p>
+            <p class="col-xs-6 col-md-offset-2">
+                <label for="id_email">{{ form.email.label }}</label>
+                <input type="text" id="id_email" value={{ publish_obj.email }} class="form-control">
+                <span style="color: red" class="pull-right error"></span>
+            </p>
+        </div>
+    </form>
+{% endblock modal_table %}
+{% block js %}
+    <script src="/static/js/change_publish.js"></script>
+{% endblock js %}

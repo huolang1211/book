@@ -1,0 +1,66 @@
+{% extends 'changes.html' %}
+{# id #}
+{% block id %}
+    <input type="text" value={{ book_obj.nid }}>
+{% endblock id %}
+{#标题#}
+{% block modal_title %}
+    <h3>书籍：{{ book_obj.title }}</h3>
+{% endblock modal_title %}
+
+
+{#form表单#}
+{% block modal_table %}
+    <form id="form">
+        {% csrf_token %}
+        <div class="row">
+            <p class="col-xs-6 col-md-offset-2">
+                <label for="id_title">{{ form.title.label }}</label>
+                <input type="text" id="id_title" name="title" value={{ book_obj.title }} class="form-control" readonly>
+                <span style="color: red" class="pull-right error"></span>
+            </p>
+            <p class="col-xs-6 col-md-offset-2">
+                <label for="id_publishDate">{{ form.publishDate.label }}</label>
+                <input type="text" id="id_publishDate" name="publishDate"
+                       value={{ book_obj.publishDate|date:'Y-m-d' }} class="form-control">
+                <span style="color: red" class="pull-right error"></span>
+            </p>
+            <p class="col-xs-6 col-md-offset-2">
+                <label for="id_price">{{ form.price.label }}</label>
+                <input type="text" id="id_price" name="price" value={{ book_obj.price }} class="form-control">
+                <span style="color: red" class="pull-right error"></span>
+            </p>
+            <p class="col-xs-6 col-md-offset-2">
+                <label for="id_publish">{{ form.publish.label }}</label>
+                <select id="id_publish" class="form-control" name="publish">
+                    {% for publish in publish_list %}
+                        {% if book_obj.publish == publish %}
+                            {# 判断是否是选中的值 #}
+                            <option selected value="{{ publish.pk }}">{{ publish.name }}</option>
+                        {% else %}
+                            <option value="{{ publish.pk }}">{{ publish.name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <span style="color: red" class="pull-right error"></span>
+            </p>
+            <p class="col-xs-6 col-md-offset-2">
+                <label for="id_author">{{ form.author.label }}</label>
+                <select id="id_author" multiple class="form-control" name="author">
+                    {% for author in author_list %}
+                        {% if author in book_obj.authors.all %}
+                            {# 判断是否是选中的值 #}
+                            <option selected value="{{ author.pk }}">{{ author.name }}</option>
+                        {% else %}
+                            <option value="{{ author.pk }}">{{ author.name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <span style="color: red" class="pull-right error"></span>
+            </p>
+        </div>
+    </form>
+{% endblock modal_table %}
+{% block js %}
+    <script src="/static/js/change_book.js"></script>
+{% endblock js %}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/static/jquery-3.4.1.js"></script>
+</head>
+<body>
+<div id="chang_id" style="display: none">
+    {% block id %}
+
+    {% endblock id %}
+</div>
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title" id="myModalLabel">
+        {% block modal_title %}
+            modal title
+        {% endblock modal_title %} </h4>
+</div>
+<div class="modal-body">
+    {% block modal_table %}
+        ...
+    {% endblock modal_table %}
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-primary" >Save changes</button>
+</div>
+{% block js %}
+
+{% endblock js %}
+</body>
+</html>

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+
+{#标题#}
+{% block title %}
+    <title>add_books</title>
+{% endblock title %}
+
+{#头部信息#}
+{% block head %}
+    <span>添&nbsp;加&nbsp;出&nbsp;版&nbsp;社&nbsp;页&nbsp;面</span>
+{% endblock %}
+
+{#form表单#}
+{% block con %}
+    <form action="/add_publish/" method="post">
+        {% csrf_token %}
+
+        {% for field in form %}
+            <div class="row">
+                <div class="col-xs-6 col-md-offset-2">
+                    <label for="">{{ field.label }}</label>
+                    {{ field }}
+                    <span style="color: red" class="pull-right">{{ field.errors.0 }}</span>
+                </div>
+            </div>
+        {% endfor %}
+        <br>
+        <input type="submit" class="btn btn-success col-md-offset-7">
+    </form>
+{% endblock %}

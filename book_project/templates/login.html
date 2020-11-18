@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+
+{#标题#}
+{% block title %}
+    <title>login</title>
+    <link rel="stylesheet" href="/static/css/login.css">
+{% endblock title %}
+
+{#头部信息#}
+{% block head %}
+    <span>登&nbsp;录&nbsp;页&nbsp;面</span>
+{% endblock %}
+
+{#form表单#}
+{% block con %}
+    <form>
+        {% csrf_token %}
+        <div class="row">
+            <div class="form-group col-xs-6">
+                <label for="username">用户名</label>
+                <input type="text" class="form-control" id="username">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-xs-6">
+                <label for="pwd">密码</label>
+                <input type="password" class="form-control" id="pwd">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-xs-6">
+                <label for="validCode">验证码</label>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <input type="text" class="form-control" id="validCode">
+                    </div>
+                    <div class="col-xs-6">
+                        <img src="/get_img/" alt="验证码" width="270" height="40" id="validCodeImg">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <input type="button" class="btn btn-success" id="login_btn" value="登录">
+        <button class="btn btn-default">
+            <a href="/register/">注册</a>
+        </button>
+        <span class="error"></span>
+    </form>
+
+    <script src="/static/js/login.js"></script>
+{% endblock con %}

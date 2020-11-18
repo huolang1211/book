@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+
+{#标题#}
+{% block title %}
+    <title>author_list</title>
+{% endblock title %}
+
+{#头部信息#}
+{% block head %}
+    <span>作&nbsp;者&nbsp;出&nbsp;版&nbsp;书&nbsp;籍&nbsp;页&nbsp;面</span>
+{% endblock %}
+
+{#表格#}
+{% block con %}
+    <table class="table table-bordered text-center">
+        <thead>
+        <tr>
+            <th class="text-center">书名</th>
+            <th class="text-center">出版日期</th>
+            <th class="text-center">价格</th>
+            <th class="text-center">出版社</th>
+        </tr>
+        </thead>
+        <tbody>
+        {# 表格内容 #}
+        {% for book in book_list %}
+            <tr>
+                <td>{{ book.title }}</td>
+                <td>{{ book.publishDate|date:'Y-m-d' }}</td>
+                {# 日期格式化输出 #}
+                <td>{{ book.price }}</td>
+                <td>
+                    <a href=/book/{{ book.publish.pk }}/publish_list/>{{ book.publish.name }}</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock con %}
+

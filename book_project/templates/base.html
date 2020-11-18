@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+        <title>base</title>
+    {% endblock %}
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/css/base.css">
+    <script src="/static/jquery-3.4.1.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.js"></script>
+
+</head>
+<body>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>
+<div class="header">
+    {% block head %}
+    {% endblock head %}
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <p>
+            <h2>Hi: {{ request.user.username }}</h2><a href="/logout/">注销</a>
+            </p>
+        </div>
+        <div class="col-md-9">
+            {% block con %}
+                <h4>content</h4>
+            {% endblock %}
+        </div>
+    </div>
+</div>
+</body>
+</html>

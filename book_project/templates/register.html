@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+
+{#标题#}
+{% block title %}
+    <title>register</title>
+    <link rel="stylesheet" href="/static/css/register.css">
+{% endblock title %}
+
+{#头部信息#}
+{% block head %}
+    <span>注&nbsp;册&nbsp;页&nbsp;面</span>
+{% endblock %}
+
+{#form表单#}
+{% block con %}
+    <form id="form">
+        {% csrf_token %}
+        {############## 普通字段用for循环 ##############}
+        {% for field in form %}
+            <div class="row">
+                <div class="form-group col-xs-6">
+                    <label for="{{ field.auto_id }}">{{ field.label }}</label>
+                    {# 会自动添加id_+field#}
+                    {{ field }} <span class="error pull-right"></span>
+                </div>
+            </div>
+        {% endfor %}
+        {############## 头像字段 ##############}
+        <div class="form-group">
+            <label for="avatar">头像
+                <img src="/media/avatars/default.png" alt="头像" width="60" height="60" id="avatar_img">
+            </label>
+            <input type="file" id="avatar">
+        </div>
+        <input type="button" class="btn btn-success reg_btn col-md-offset-2 btn-lg" value="注册"><span class="error"></span>
+    </form>
+    <script src="/static/js/register.js"></script>
+{% endblock con %}

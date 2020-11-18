@@ -1,0 +1,17 @@
+
+form .btn a:hover{
+    text-decoration: none;
+}
+.error{
+    color: red;
+    margin-left: 20px;
+}
+#login_btn{
+    margin-left: 50px;
+}
+.btn-default{
+    margin-left: 50px;
+}
+#validCodeImg{
+    margin-top: -5px;
+}

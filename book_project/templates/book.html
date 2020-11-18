@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+
+
+{#标题#}
+{% block title %}
+    <title>book</title>
+{% endblock title %}
+
+{#头部信息#}
+{% block head %}
+    <span>图&nbsp;书&nbsp;管&nbsp;理&nbsp;页&nbsp;面</span>
+{% endblock %}
+
+{#表格#}
+{% block con %}
+    <ul class="nav nav-tabs active" role="tablist">
+        <li role="presentation">
+            <a href="#book" aria-controls="book" role="tab"
+               data-toggle="tab">书籍</a></li>
+        <li role="presentation"><a href="#publish" aria-controls="publish" role="tab" data-toggle="tab">出版社</a>
+        </li>
+        <li role="presentation"><a href="#author" aria-controls="author" role="tab"
+                                                  data-toggle="tab">作者</a>
+        </li>
+    </ul>
+    {#####################################书籍页面######################################}
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="book">
+            <table class="table table-bordered text-center">
+                <thead>
+                <tr>
+                    {% for book_label in book_form %}
+                        <th class="text-center">{{ book_label.label }}</th>
+                    {% endfor %}
+                    <th class="text-center">删除操作</th>
+                    <th class="text-center">编辑操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {# 表格内容，从数据库传入#}
+                {% for book_obj in book_values %}
+                    <tr>
+                        <td>{{ book_obj.title }} </td>
+                        <td>{{ book_obj.publishDate|date:'Y-m-d' }} </td>
+                        {# 时间格式化输出 #}
+                        <td>{{ book_obj.price }} </td>
+                        <td>
+                            <a href={{ book_obj.publish.pk }}/publish_list/>{{ book_obj.publish.name }}</a>
+                        </td>
+                        <td> {% for author_obj in book_obj.authors.all %}{# 取出书籍的所有作者 #}
+                            {% if forloop.last %}{# 判断取出的是否是最后一个值 #}
+                                <a href={{ author_obj.pk }}/author_list/>{{ author_obj.name }}</a>
+                                {# 最后一个值后面不加逗号 #}
+                            {% else %}
+                                <a href={{ author_obj.pk }}/author_list/>{{ author_obj.name }}</a>,
+                            {% endif %}
+                        {% endfor %}
+                        </td>
+                        <td>
+                            <a href="{{ book_obj.nid }}/delete_book" class="btn btn-danger">删除</a>
+                        </td>
+                        <td>
+                            <a href="{{ book_obj.nid }}/change_book" class="btn btn-info"
+                               data-target="#myModal" data-toggle="modal">编辑</a>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+            <a href="/add_books/" class="btn btn-success " role="button"><span
+                    class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></a>
+        </div>
+        {#####################################出版社页面######################################}
+        <div role="tabpanel" class="tab-pane" id="publish">
+            <table class="table table-bordered text-center">
+                <thead>
+                <tr>
+                    {% for publish_label in publish_form %}
+                        <th class="text-center">{{ publish_label.label }}</th>
+                    {% endfor %}
+                    <th class="text-center">删除操作</th>
+                    <th class="text-center">编辑操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {# 表格内容，从数据库传入#}
+                {% for publish_obj in publish_values %}
+                    {# {'nid': 1, 'name': '人民出版社', 'city': '北京', 'email': '123@qq.com'} #}
+                    <tr>
+                        <td>{{ publish_obj.name }} </td>
+                        <td>{{ publish_obj.city }} </td>
+                        <td>{{ publish_obj.email }} </td>
+                        <td>
+                            <a href="{{ publish_obj.nid }}/delete_publish" class="btn btn-danger">删除</a>
+                        </td>
+                        <td>
+                            <a href="{{ publish_obj.nid }}/change_publish" class="btn btn-info"
+                               data-target="#myModal" data-toggle="modal">编辑</a>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+            <a href="/add_publish/" class="btn btn-success " role="button"><span
+                    class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></a>
+        </div>
+        {#####################################作者页面######################################}
+        <div role="tabpanel" class="tab-pane" id="author">
+            <table class="table table-bordered text-center">
+                <thead>
+                <tr>
+                    {% for author_label in author_form %}
+                        <th class="text-center">{{ author_label.label }}</th>
+                    {% endfor %}
+                    <th class="text-center">删除操作</th>
+                    <th class="text-center">编辑操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {# 表格内容，从数据库传入#}
+                {% for author_obj in author_values %}
+                    <tr>
+                        <td>{{ author_obj.name }} </td>
+                        <td>{{ author_obj.age }} </td>
+                        <td>
+                            <a href="{{ author_obj.nid }}/delete_author" class="btn btn-danger">删除</a>
+                        </td>
+                        <td>
+                            <a href="{{ author_obj.nid }}/change_author" class="btn btn-info"
+                               data-target="#myModal" data-toggle="modal">编辑</a>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+            <a href="/add_author/" class="btn btn-success " role="button"><span
+                    class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></a>
+        </div>
+    </div>
+    <script src="/static/js/book.js"></script>
+{% endblock con %}
+
